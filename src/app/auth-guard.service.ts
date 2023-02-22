@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +28,9 @@ export class AuthGuardService implements CanActivate {
       map((user) => {
         if (user) return true;
 
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], {
+          queryParams: { returnUrl: state.url },
+        });
         return false;
       })
     );
