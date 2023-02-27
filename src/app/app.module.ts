@@ -16,6 +16,7 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CustomFormsModule } from 'ng2-validation';
 import { LoginComponent } from './login/login.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { NgModule } from '@angular/core';
@@ -44,13 +45,16 @@ import { environment } from '../environments/environment';
   ],
   imports: [
     BrowserModule,
+    CustomFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+
     AngularFireStorageModule,
     HttpClientModule,
     FormsModule,
+
     AngularFireDatabaseModule,
     NgbModule,
     RouterModule.forRoot([
@@ -76,13 +80,18 @@ import { environment } from '../environments/environment';
       },
 
       {
-        path: 'admin/products',
-        component: AdminProductsComponent,
+        path: 'admin/products/new',
+        component: ProductFormComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'admin/products/new',
+        path: 'admin/products/:id',
         component: ProductFormComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/products',
+        component: AdminProductsComponent,
         canActivate: [AuthGuard],
       },
       {
